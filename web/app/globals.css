@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/* class 기반 다크모드 (OS 설정 + 사용자 토글 둘 다 지원) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: oklch(0.99 0.004 240);
+  --surface: oklch(1 0 0);
+  --surface-muted: oklch(0.97 0.006 240);
+  --border: oklch(0.91 0.008 240);
+  --fg: oklch(0.21 0.02 250);
+  --fg-muted: oklch(0.52 0.015 250);
+  --brand: oklch(0.55 0.14 235);
+  --brand-fg: oklch(0.99 0 0);
+  --brand-soft: oklch(0.95 0.03 235);
+  --accent: oklch(0.63 0.13 165);
+  --ring: oklch(0.55 0.14 235 / 45%);
+}
+
+.dark {
+  --bg: oklch(0.17 0.014 250);
+  --surface: oklch(0.21 0.016 250);
+  --surface-muted: oklch(0.25 0.018 250);
+  --border: oklch(0.31 0.018 250);
+  --fg: oklch(0.95 0.005 250);
+  --fg-muted: oklch(0.71 0.014 250);
+  --brand: oklch(0.72 0.13 235);
+  --brand-fg: oklch(0.17 0.014 250);
+  --brand-soft: oklch(0.29 0.045 235);
+  --accent: oklch(0.75 0.12 165);
+  --ring: oklch(0.72 0.13 235 / 45%);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-brand: var(--brand);
+  --color-brand-fg: var(--brand-fg);
+  --color-brand-soft: var(--brand-soft);
+  --color-accent: var(--accent);
+  --color-ring: var(--ring);
+
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    /* 한글은 단어 중간 줄바꿈이 어색하므로 어절 단위로 끊는다 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+
+  /* 숫자는 자리수가 흔들리지 않도록 tabular */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
